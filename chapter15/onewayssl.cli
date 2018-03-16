@@ -1,0 +1,18 @@
+connect
+
+batch
+ 
+/subsystem=elytron/key-store=demoKeyStore:add(path=server.keystore,relative-to=jboss.server.config.dir, credential-reference={clear-text=secret},type=JKS)
+  
+/subsystem=elytron/key-manager=demoKeyManager:add(key-store=demoKeyStore,credential-reference={clear-text=secret})
+   
+/subsystem=elytron/server-ssl-context=demoSSLContext:add(key-manager=demoKeyManager,protocols=["TLSv1.2"])
+  
+# This is only needed if WildFly uses by default the Legacy security realm
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
+ 
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context,value=demoSSLContext)
+ 
+run-batch
+ 
+reload

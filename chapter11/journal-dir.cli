@@ -1,0 +1,10 @@
+connect
+
+batch
+
+/subsystem=messaging-activemq/server=default/path=journal-directory/:undefine-attribute(name=relative-to)
+
+/subsystem=messaging-activemq/server=default/path=journal-directory/:write-attribute(name=path,value=/var/activemq)
+
+run-batch
+

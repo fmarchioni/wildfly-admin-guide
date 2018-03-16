@@ -1,0 +1,12 @@
+connect
+
+batch
+
+/subsystem="security"/security-domain="DBLogin":add()
+/subsystem="security"/security-domain="DBLogin"/authentication="classic":add()
+/subsystem="security"/security-domain="DBLogin"/authentication="classic"/login-module="Database":add(code="Database",flag="required",module-options={"dsJndiName" => "java:/MySqlDS","principalsQuery" => "SELECT password FROM USERS WHERE login=?","rolesQuery" => "SELECT role FROM USERS WHERE login=?"})
+
+run-batch
+
+reload
+

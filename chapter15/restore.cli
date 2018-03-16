@@ -1,0 +1,17 @@
+connect
+
+batch
+
+/subsystem=undertow/application-security-domain=undertowSD:remove()
+
+/subsystem=elytron/http-authentication-factory=example-fs-http-auth:remove()
+
+/subsystem=elytron/security-domain=fsSD:remove()
+
+run-batch
+
+reload 
+
+ 
+
+ 

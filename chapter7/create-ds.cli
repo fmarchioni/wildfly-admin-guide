@@ -1,0 +1,21 @@
+# Quick start with docker
+# Start a new MySQL in Docker with
+# docker run -d --name mysql -e MYSQL_USER=jboss -e MYSQL_PASSWORD=jboss -e MYSQL_DATABASE=mysqlschema -e MYSQL_ROOT_PASSWORD=secret mysql
+
+connect
+
+batch
+
+module add --name=com.mysql --resources=mysql-connector-java-5.1.31-bin.jar --dependencies=javax.api,javax.transaction.api
+ 
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql)
+ 
+data-source add --jndi-name=java:/MySqlDS --name=MySQLPool --connection-url=jdbc:mysql://172.17.0.2:3306/mysqlschema --driver-name=mysql --user-name=jboss --password=jboss  
+
+run-batch
+
+reload
+
+
+
+

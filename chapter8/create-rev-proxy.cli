@@ -1,0 +1,10 @@
+connect
+
+batch
+
+/subsystem=undertow/configuration=handler/reverse-proxy=myproxy:add()
+/subsystem=undertow/configuration=handler/reverse-proxy=myproxy/host=localhost:add(instance-id="myRoute",outbound-socket-binding="http-remote",path="/out",scheme="http")
+/subsystem=undertow/server=default-server/host=default-host/location="/in":add(handler="myproxy")
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=http-remote/:add(host=localhost,port=8180)
+
+run-batch

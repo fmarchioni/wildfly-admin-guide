@@ -1,0 +1,11 @@
+connect
+
+batch
+
+# Define a new undertow filter
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=404-handler:add(predicate=true)
+
+# Assign a custom error page to the filter
+/subsystem=undertow/configuration=filter/error-page=404-handler/:add(code=404,path=/var/docs/www/error.html)
+
+run-batch

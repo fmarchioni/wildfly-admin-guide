@@ -1,0 +1,15 @@
+batch
+
+#Add the module the application server
+module add --name=org.jboss.logmanager.ext --dependencies=org.jboss.logmanager,javax.json.api,javax.xml.stream.api --resources=jboss-logmanager-ext-1.0.0.Alpha3.jar
+
+#Create a Custom Handler using the SocketHandler API 
+/subsystem=logging/custom-handler=socket-handler:add(class=org.jboss.logmanager.ext.handlers.SocketHandler,module=org.jboss.logmanager.ext,named-formatter=PATTERN,properties={hostname=localhost, port=7080})
+
+# Add the Custom Handler to the Root Logger 
+/subsystem=logging/root-logger=ROOT:add-handler(name=socket-handler)
+
+run-batch 
+
+reload
+

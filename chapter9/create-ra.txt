@@ -1,0 +1,14 @@
+batch
+/subsystem="resource-adapters":add()
+/subsystem="resource-adapters"/resource-adapter="activemq":add(archive="activemq-rar.rar",transaction-support="XATransaction")
+/subsystem="resource-adapters"/resource-adapter="activemq"/config-properties="ServerUrl":add(value="tcp://localhost:61616")
+/subsystem="resource-adapters"/resource-adapter="activemq"/config-properties="UserName":add(value="defaultUser")
+/subsystem="resource-adapters"/resource-adapter="activemq"/config-properties="UseInboundSession":add(value="false")
+/subsystem="resource-adapters"/resource-adapter="activemq"/config-properties="Password":add(value="defaultPassword")
+/subsystem="resource-adapters"/resource-adapter="activemq"/admin-objects="TestTopic":add(class-name="org.apache.activemq.command.ActiveMQTopic",jndi-name="java:jboss/activemq/topic/TestTopic",use-java-context="true")
+/subsystem="resource-adapters"/resource-adapter="activemq"/admin-objects="TestTopic"/config-properties="PhysicalName":add(value="activemq/topic/TestTopic")
+/subsystem="resource-adapters"/resource-adapter="activemq"/admin-objects="TestQueue":add(class-name="org.apache.activemq.command.ActiveMQQueue",jndi-name="java:jboss/activemq/queue/TestQueue",use-java-context="true")
+/subsystem="resource-adapters"/resource-adapter="activemq"/admin-objects="TestQueue"/config-properties="PhysicalName":add(value="activemq/queue/TestQueue")
+/subsystem="resource-adapters"/resource-adapter="activemq"/connection-definitions="ConnectionFactory":add(class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory",enabled="true",jndi-name="java:/MQConnectionFactory",max-pool-size="20",min-pool-size="1",pool-prefill="false",same-rm-override="false")
+run-batch
+

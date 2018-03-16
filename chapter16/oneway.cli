@@ -1,0 +1,11 @@
+connect 
+
+batch
+
+/core-service=management/security-realm=SSLRealm:add
+	
+/core-service=management/security-realm=SSLRealm/server-identity=ssl:add(keystore-path="server.keystore", keystore-relative-to="jboss.server.config.dir", keystore-password="secret")
+
+run-batch
+
+ 

@@ -1,0 +1,19 @@
+connect
+
+batch
+ 
+# Add the keystores, key manager, trust manager and ssl context configuration in the elytron subsystem
+/subsystem=elytron/key-store=demoKeyStore:add(path=server.keystore,relative-to=jboss.server.config.dir,type=JKS,credential-reference={clear-text=secret})
+/subsystem=elytron/key-store=demoTrustStore:add(path=client.truststore,relative-to=jboss.server.config.dir,type=JKS,credential-reference={clear-text=secret})
+/subsystem=elytron/key-manager=demoKeyManager:add(key-store=demoKeyStore,credential-reference={clear-text=secret})
+/subsystem=elytron/trust-manager=demoTrustManager:add(key-store=demoTrustStore)
+/subsystem=elytron/server-ssl-context=demoSSLContext:add(key-manager=demoKeyManager,trust-manager=demoTrustManager,protocols=[TLSv1.2],need-client-auth=true)
+
+# This is only needed if WildFly uses by default the Legacy security realm 
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
+
+# Store SSL Context information in undertow 
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context,value=demoSSLContext)
+ 
+run-batch
+reload

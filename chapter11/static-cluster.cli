@@ -1,0 +1,20 @@
+connect
+
+batch
+# Create outbound sockets for JMS Servers
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=node1/:add(host=192.168.10.1,port=8080)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=node2/:add(host=192.168.10.2,port=8180)
+# Map the socket Bindings with an http connector and define the endpoint name
+/subsystem=messaging-activemq/server=default/http-connector=cluster-server1/:add(endpoint=http-acceptor,socket-binding=node1)
+/subsystem=messaging-activemq/server=default/http-connector=cluster-server2/:add(endpoint=http-acceptor,socket-binding=node2)
+#Undefine the broadcast group and discovery groups
+/subsystem=messaging-activemq/server=default/broadcast-group=bg-group1/:remove
+/subsystem=messaging-activemq/server=default/discovery-group=dg-group1/:remove
+#Unset the  discovery-group attribute for the cluster
+/subsystem=messaging-activemq/server=default/cluster-connection=my-cluster:undefine-attribute(name=discovery-group)
+#Include in your cluster the list of static connectors
+/subsystem=messaging-activemq/server=default/cluster-connection=my-cluster/:write-attribute(name=static-connectors,value=["cluster-server1","cluster-server2"])
+
+run-batch
+
+reload

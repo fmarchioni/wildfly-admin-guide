@@ -1,0 +1,11 @@
+connect
+batch
+
+/subsystem=security/security-domain=ds-encrypted:add(cache-type="default")
+
+/subsystem=security/security-domain=ds-encrypted/authentication="classic":add()
+
+/subsystem=security/security-domain=ds-encrypted/authentication="classic"/login-module="org.picketbox.datasource.security.SecureIdentityLoginModule":add(code="org.picketbox.datasource.security.SecureIdentityLoginModule",flag="required",module-options={"username" => "jboss","password" => "-e898e7e4930a22","managedConnectionFactoryName" => "jboss.jca:service=LocalTxCM,name=MySqlDS"})
+
+run-batch
+reload

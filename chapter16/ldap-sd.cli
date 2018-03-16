@@ -1,0 +1,10 @@
+connect
+
+batch
+
+/subsystem="security"/security-domain="LDAPAuth":add()
+/subsystem="security"/security-domain="LDAPAuth"/authentication="classic":add()
+/subsystem="security"/security-domain="LDAPAuth"/authentication="classic"/login-module="LdapExtended":add(code="LdapExtended",flag="required",module-options={"java.naming.factory.initial" => "com.sun.jndi.ldap.LdapCtxFactory","java.naming.provider.url" => "ldap://172.17.0.2:389","java.naming.security.authentication" => "simple","bindDN" => "cn=admin,dc=wildfly,dc=org","bindCredential" => "admin","baseCtxDN" => "ou=Users,dc=wildfly,dc=org","baseFilter" => "(uid={0})","rolesCtxDN" => "ou=Roles,dc=wildfly,dc=org","roleFilter" => "(member={1})","roleAttributeID" => "cn","searchScope" => "ONELEVEL_SCOPE","allowEmptyPasswords" => "true"})
+
+run-batch
+

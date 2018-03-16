@@ -1,0 +1,16 @@
+connect
+
+batch
+# Configure Destination
+/subsystem="messaging-activemq"/server="default"/jms-queue="JMSBridgeSourceQueue":add(entries=["queue/JMSBridgeSourceQueue","java:jboss/exported/jms/queues/JMSBridgeSourceQueue"])
+# Configure Outbound socket
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=messaging-remote/:add(host=localhost,port=8180)
+# Configure Http Connector
+/subsystem=messaging-activemq/server=default/http-connector=bridge-connector/:add(endpoint=http-acceptor,socket-binding=messaging-remote)
+# Configure Remote Connection Factory
+/subsystem=messaging-activemq/server=default/connection-factory=RemoteConnectionFactory:write-attribute(name=connectors,value=["bridge-connector"])
+/subsystem=messaging-activemq/server=default/connection-factory=RemoteConnectionFactory:write-attribute(name=entries,value=["java:jboss/exported/jms/RemoteConnectionFactory"])
+# Configure JMS Bridge
+/subsystem="messaging-activemq"/jms-bridge="simple-jms-bridge":add(failure-retry-interval="10000",max-batch-size="10",max-batch-time="100",max-retries="1",quality-of-service="AT_MOST_ONCE",source-connection-factory="ConnectionFactory",source-destination="queue/JMSBridgeSourceQueue",target-connection-factory="jms/RemoteConnectionFactory",target-context={"java.naming.factory.initial" => "org.jboss.naming.remote.client.InitialContextFactory","java.naming.provider.url" => "http-remoting://localhost:8180"},target-destination="jms/queues/JMSBridgeTargetQueue",target-password="password",target-user="jmsuser")
+#Execute batch script
+run-batch

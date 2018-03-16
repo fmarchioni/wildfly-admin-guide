@@ -1,0 +1,24 @@
+dn: ou=Users,dc=wildfly,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: Users
+ 
+dn: uid=frank,ou=Users,dc=wildfly,dc=org
+objectClass: top
+objectClass: person
+objectClass: inetOrgPerson
+cn: Franky
+sn: frank
+uid: frank
+userPassword: secret123
+ 
+dn: ou=Roles,dc=wildfly,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: Roles
+ 
+dn: cn=Admin,ou=Roles,dc=wildfly,dc=org
+objectClass: top
+objectClass: groupOfNames
+cn: Admin
+member: uid=frank,ou=Users,dc=wildfly,dc=org

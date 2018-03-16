@@ -1,0 +1,30 @@
+# Please note that we aren't using a batch for this script as there is an if/end-if statement in it
+
+connect 
+
+# Use the Datasource defined in chapter 7 - Uncomment if needed
+
+# module add --name=com.mysql --resources=mysql-connector-java-5.1.31-bin.jar --dependencies=javax.api,javax.transaction.api
+# /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql)
+# data-source add --jndi-name=java:/MySqlDS --name=MySQLPool --connection-url=jdbc:mysql://172.17.0.2:3306/mysqlschema --driver-name=mysql --user-name=jboss --password=jboss
+
+# Add the JDBC security realm creation
+
+/subsystem=elytron/jdbc-realm=demoJdbcRealm:add(principal-query=[{sql="SELECT password,role FROM USERS WHERE login=?",data-source=MySQLPool,clear-password-mapper={password-index=1},attribute-mapping=[{index=2,to=groups}]}])
+
+/subsystem=elytron/security-domain=jdbcSD:add(realms=[{realm=demoJdbcRealm,role-decoder=groups-to-roles}],default-realm=demoJdbcRealm,permission-mapper=default-permission-mapper)
+
+# Check first if you have already defined this role decoder with:
+
+if (outcome != success) of /subsystem=elytron/simple-role-decoder=from-roles-attribute:read-resource	
+/subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)
+end-if
+
+/subsystem=elytron/http-authentication-factory=db-http-auth:add(http-server-mechanism-factory=global,security-domain=jdbcSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=RealmUsersRoles}]}])
+
+/subsystem=undertow/application-security-domain=httpJdbcSD:add(http-authentication-factory=db-http-auth)
+ 
+# Reload the server configuration
+reload
+
+

@@ -1,0 +1,15 @@
+# Create first users from the shell with:
+#./add-user.sh -m -u f.marchioni -p password1!
+#./add-user.sh -m -u wildmonitor -p password1!
+#./add-user.sh -m -u wilddeployer -p password1!
+
+
+/core-service=management/access=authorization/:write-attribute(name=provider,value=rbac)
+
+/core-service=management/access=authorization/role-mapping=SuperUser/include=f.marchioni/:add(type=USER,name=f.marchioni)
+
+/core-service=management/access=authorization/role-mapping=Monitor/:add
+/core-service=management/access=authorization/role-mapping=Deployer/:add
+ 
+/core-service=management/access=authorization/role-mapping=Monitor/include=wildmonitor/:add(type=USER,name=wildmonitor)
+/core-service=management/access=authorization/role-mapping=Deployer/include=wilddeployer/:add(type=USER,name=wilddeployer)

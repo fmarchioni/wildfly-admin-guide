@@ -1,0 +1,23 @@
+# Please note that we aren't using a batch for this script as there is an if/end-if statement in it
+
+connect
+ 
+/subsystem=elytron/dir-context=exampleDC:add(url="ldap://172.17.0.2:389",principal="cn=admin,dc=wildfly,dc=org",credential-reference={clear-text="secret"})
+	
+/subsystem=elytron/ldap-realm=demoLdapRealm:add(dir-context=exampleDC,identity-mapping={search-base-dn="ou=Users,dc=wildfly,dc=org",rdn-identifier="uid",user-password-mapper={from="userPassword"},attribute-mapping=[{filter-base-dn="ou=Roles,dc=wildfly,dc=org",filter="(&(objectClass=groupOfNames)(member={1}))",from="cn",to="Roles"}]}) 
+
+# Check first if you have already defined this role decoder with:
+if (outcome != success) of /subsystem=elytron/simple-role-decoder=from-roles-attribute:read-resource	
+/subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)
+end-if
+	
+/subsystem=elytron/security-domain=ldapSD:add(realms=[{realm=demoLdapRealm,role-decoder=from-roles-attribute}],default-realm=demoLdapRealm,permission-mapper=default-permission-mapper)
+	
+/subsystem=elytron/http-authentication-factory=example-ldap-http-auth:add(http-server-mechanism-factory=global,security-domain=ldapSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=RealmUsersRoles}]}])
+
+ 	
+/subsystem=undertow/application-security-domain=httpLdapSD:add(http-authentication-factory=example-ldap-http-auth)
+
+reload
+
+ 

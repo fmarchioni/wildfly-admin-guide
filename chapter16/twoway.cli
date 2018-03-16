@@ -1,0 +1,11 @@
+connect 
+
+batch
+	
+/core-service=management/security-realm=SSLRealm/authentication=truststore:add(keystore-password="secret",keystore-path="server.truststore",keystore-relative-to="jboss.server.config.dir")
+	
+/subsystem=undertow/server=default-server/https-listener=default-https:write-attribute(name=security-realm,value=SSLRealm)
+
+run-batch
+
+ 
