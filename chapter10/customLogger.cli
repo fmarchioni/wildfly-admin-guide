@@ -6,7 +6,7 @@ batch
 module add --name=org.logger.mysql --resources=/tmp/dblogger/target/dblogger.jar --dependencies=javax.api,org.jboss.logging,com.mysql
 
 #Create a Custom Handler named  DBLogHandler
-/subsystem=logging/custom-handler=DBLogHandler/:add(class=com.mastertheboss.JdbcLogger,module=org.logger.mysql,level=INFO,formatter="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n", properties={"driverClassName" => "com.mysql.jdbc.Driver","jdbcUrl" => "jdbc:mysql://localhost:3306/mysqlschema","username" => "jboss","password" => "jdbc:mysql://localhost:3306/mysqlschema"})
+/subsystem=logging/custom-handler=DBLogHandler/:add(class=com.mastertheboss.JdbcLogger,module=org.logger.mysql,level=INFO,formatter="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n", properties={"driverClassName" => "com.mysql.jdbc.Driver","jdbcUrl" => "jdbc:mysql://localhost:3306/mysqlschema","username" => "jboss","password" => "jboss"})
 
 # Add DBLogHandler to the Root Logger 
 
