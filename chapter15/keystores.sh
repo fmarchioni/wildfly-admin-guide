@@ -12,4 +12,5 @@ keytool -import -file client.crt -alias quickstartUser -keystore client.truststo
  
  
 # Export client certificate to pkcs12 format.
-keytool -importkeystore -srckeystore client.keystore -srcstorepass secret -destkeystore clientCert.p12 -srcstoretype PKCS12 -deststoretype PKCS12 -deststorepass secret
+# Not need anymore if we use -storetype pkcs12 
+#keytool -importkeystore -srckeystore client.keystore -srcstorepass secret -destkeystore clientCert.p12 -srcstoretype PKCS12 -deststoretype PKCS12 -deststorepass secret
