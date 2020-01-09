@@ -1,5 +1,5 @@
 # Create Server keystore
-keytool -genkey -keyalg RSA -keystore server.keystore -storepass secret -keypass secret -validity 365  -dname "cn=Server Administrator,o=Acme,c=GB"
+keytool -genkey -keyalg RSA -keystore server.keystore -storepass secret -keypass secret -storetype pkcs12 -validity 365  -dname "cn=Server Administrator,o=Acme,c=GB"
 
 # Create Client keystore	
 keytool -genkey -keystore client.keystore -storepass secret -validity 365 -keyalg RSA -keysize 2048 -storetype pkcs12 -dname "cn=Desktop user,o=Acme,c=GB"
