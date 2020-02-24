@@ -1,7 +1,10 @@
+# Download Handler with:
+# wget https://repo1.maven.org/maven2/org/jboss/logmanager/jboss-logmanager-ext/1.0.0.Alpha5/jboss-logmanager-ext-1.0.0.Alpha5.jar
+
 batch
 
 #Add the module the application server
-module add --name=org.jboss.logmanager.ext --dependencies=org.jboss.logmanager,javax.json.api,javax.xml.stream.api --resources=jboss-logmanager-ext-1.0.0.Alpha3.jar
+module add --name=org.jboss.logmanager.ext --dependencies=org.jboss.logmanager,javax.json.api,javax.xml.stream.api --resources=jboss-logmanager-ext-1.0.0.Alpha5.jar
 
 #Create a Custom Handler using the SocketHandler API 
 /subsystem=logging/custom-handler=socket-handler:add(class=org.jboss.logmanager.ext.handlers.SocketHandler,module=org.jboss.logmanager.ext,named-formatter=PATTERN,properties={hostname=localhost, port=7080})
@@ -12,4 +15,3 @@ module add --name=org.jboss.logmanager.ext --dependencies=org.jboss.logmanager,j
 run-batch 
 
 reload
-
