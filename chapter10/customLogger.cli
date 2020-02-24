@@ -1,20 +1,13 @@
 connect
 
-batch
-
 #Add the module the application server
-module add --name=org.logger.mysql --resources=/tmp/dblogger/target/dblogger.jar --dependencies=javax.api,org.jboss.logging,com.mysql
+module add --name=org.logger.postgres --resources=/tmp/dblogger/target/dblogger.jar --dependencies=javax.api,org.jboss.logging,org.postgres
 
 #Create a Custom Handler named  DBLogHandler
-/subsystem=logging/custom-handler=DBLogHandler/:add(class=com.mastertheboss.JdbcLogger,module=org.logger.mysql,level=INFO,formatter="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n", properties={"driverClassName" => "com.mysql.jdbc.Driver","jdbcUrl" => "jdbc:mysql://localhost:3306/mysqlschema","username" => "jboss","password" => "jboss"})
+/subsystem=logging/custom-handler=DBLogHandler/:add(class=com.mastertheboss.JdbcLogger,module=org.logger.postgres,level=INFO,formatter="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n", properties={"driverClassName" => "org.postgresql.Driver","jdbcUrl" => "jdbc:postgresql://localhost:5432/postgres","username" => "postgres","password" => "postgres"})
 
-# Add DBLogHandler to the Root Logger 
-
+# Add DBLogHandler to the Root Logger
 /subsystem=logging/root-logger=ROOT:add-handler(name=DBLogHandler)
 
 run-batch
-
 reload
-
-
-

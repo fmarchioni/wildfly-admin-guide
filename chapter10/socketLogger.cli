@@ -1,5 +1,6 @@
 # Download Handler with:
 # wget https://repo1.maven.org/maven2/org/jboss/logmanager/jboss-logmanager-ext/1.0.0.Alpha5/jboss-logmanager-ext-1.0.0.Alpha5.jar
+connect
 
 batch
 

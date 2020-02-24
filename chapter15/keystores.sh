@@ -1,16 +1,20 @@
-# Create Server keystore
-keytool -genkey -keyalg RSA -keystore server.keystore -storepass secret -keypass secret -storetype pkcs12 -validity 365  -dname "cn=Server Administrator,o=Acme,c=GB"
+if [[ -z "${JBOSS_HOME}" ]]; then
+  echo "You need to set JBOSS_HOME"
+  exit
+fi
 
-# Create Client keystore	
-keytool -genkey -keystore client.keystore -storepass secret -validity 365 -keyalg RSA -keysize 2048 -storetype pkcs12 -dname "cn=Desktop user,o=Acme,c=GB"
+keytool -genkeypair -alias localhost -keyalg RSA -keysize 2048 -validity 365 -keystore server.keystore -dname "cn=Server Administrator,o=Acme,c=GB" -keypass secret -storepass secret
 
-# Export Client keystore
-keytool -exportcert -keystore client.keystore  -storetype pkcs12 -storepass secret -keypass secret -file client.crt
+cp server.keystore $JBOSS_HOME/standalone/configuration
 
-# Import the client certificate into the truststore of the client. 
-keytool -import -file client.crt -alias quickstartUser -keystore client.truststore -storepass secret
+keytool -genkeypair -alias client -keyalg RSA -keysize 2048 -validity 365 -keystore client.keystore -dname "CN=client" -keypass secret -storepass secret
+
+keytool -exportcert  -keystore server.keystore -alias localhost -keypass secret -storepass secret -file server.crt
  
+keytool -exportcert  -keystore client.keystore -alias client -keypass secret -storepass secret -file client.crt
+
+keytool -importcert -keystore server.truststore -storepass secret -alias client -trustcacerts -file client.crt -noprompt
  
-# Export client certificate to pkcs12 format.
-# Not need anymore if we use -storetype pkcs12 
-#keytool -importkeystore -srckeystore client.keystore -srcstorepass secret -destkeystore clientCert.p12 -srcstoretype PKCS12 -deststoretype PKCS12 -deststorepass secret
+keytool -importcert -keystore client.truststore -storepass secret -alias localhost -trustcacerts -file server.crt -noprompt
+
+cp client.truststore $JBOSS_HOME/standalone/configuration

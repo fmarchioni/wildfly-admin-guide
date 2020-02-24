@@ -1,3 +1,5 @@
+connect
+
 batch
 /subsystem="resource-adapters":add()
 /subsystem="resource-adapters"/resource-adapter="activemq":add(archive="activemq-rar.rar",transaction-support="XATransaction")
@@ -12,3 +14,4 @@ batch
 /subsystem="resource-adapters"/resource-adapter="activemq"/connection-definitions="ConnectionFactory":add(class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory",enabled="true",jndi-name="java:/MQConnectionFactory",max-pool-size="20",min-pool-size="1",pool-prefill="false",same-rm-override="false")
 run-batch
 
+reload
