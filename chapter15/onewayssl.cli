@@ -1,5 +1,7 @@
 connect
 
+batch
+
 # Configure Server Keystore
 /subsystem=elytron/key-store=demoKeyStore:add(path=server.keystore,relative-to=jboss.server.config.dir, credential-reference={clear-text=secret},type=JKS)
 # Server Keystore credentials
