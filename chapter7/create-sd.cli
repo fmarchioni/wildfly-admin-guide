@@ -6,4 +6,5 @@ batch
 
 /subsystem=security/security-domain=ds-encrypted/authentication="classic"/login-module="org.picketbox.datasource.security.SecureIdentityLoginModule":add(code="org.picketbox.datasource.security.SecureIdentityLoginModule",flag="required",module-options={"username" => "postgres","password" => "1d5bcec446b79907df8592078de921bc","managedConnectionFactoryName" => "jboss.jca:service=LocalTxCM,name=java:/PostGreDS"})
 
+run-batch
 reload
