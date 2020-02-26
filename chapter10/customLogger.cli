@@ -1,5 +1,7 @@
 connect
 
+batch
+
 #Add the module the application server
 module add --name=org.logger.postgres --resources=/tmp/dblogger/target/dblogger.jar --dependencies=javax.api,org.jboss.logging,org.postgres
 
