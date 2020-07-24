@@ -2,26 +2,25 @@
 
 How to run the example:
 
-1. Start the Repository used to store credentials. For LDAP:
+* Start the Repository used to store credentials. For LDAP:
 ----
 $ docker run --env LDAP_ORGANISATION="wildfly" --env LDAP_DOMAIN="wildfly.org" --env LDAP_ADMIN_PASSWORD="admin" osixia/openldap
 ----
 
-2. Load entries in the repository. For LDAP:
+* Load entries in the repository. For LDAP:
 ----
 $ ldapadd -f example.ldif -x -h 172.17.0.2 -p 389 -D "cn=admin,dc=wildfly,dc=org" -w "admin" -c
 ----
 
-3. Configure the Security Domain and the Realm you want to use. For LDAP, execute the CLI script: http://bit.ly/2FGYnVG
+* Configure the Security Domain and the Realm you want to use. For LDAP, execute the CLI script: http://bit.ly/2FGYnVG
 
-
-4. Build and deploy the application
+* Build and deploy the application
 
 ----
 $ mvn install wildfly:deploy
 ----
 
-5. Test the application: http://localhost:8080/demo-security/
+* Test the application: http://localhost:8080/demo-security/
 
 (Hint: use credentials frank/secret123)
 
