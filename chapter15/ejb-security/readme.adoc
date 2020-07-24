@@ -3,10 +3,10 @@
 How to run the example:
 
 
-1. Configure the Security Domain and SASL Authentication Factory by running the CLI script: http://bit.ly/2GzRgLT
+* Configure the Security Domain and SASL Authentication Factory by running the CLI script: http://bit.ly/2GzRgLT
 
 
-2. Build and deploy the Server application
+* Build and deploy the Server application
 
 ----
 $ cd server
@@ -15,7 +15,7 @@ $ mvn install wildfly:deploy
 
 ----
 
-3. Build and execute the Client application
+* Build and execute the Client application
 
 ----
 $ cd client
