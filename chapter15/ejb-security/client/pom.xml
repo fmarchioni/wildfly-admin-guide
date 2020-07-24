@@ -21,7 +21,7 @@
    
           <groupId>com.itbuzzpress.security</groupId>
        
-        <version>12.0.0.Final</version>
+          <version>1.0.0.Final</version>
         
  
     <artifactId>ejb-remote-client</artifactId>
@@ -29,44 +29,24 @@
     <name>ejb-remote - client</name>
     <description>This project demonstrates how to access an EJB from a remote client; this is the client POM file</description>
     <properties>
-        <version.server.bom>12.0.0.CR1</version.server.bom>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.jboss.spec.javaee.7.0>1.1.1.Final</version.jboss.spec.javaee.7.0>
- <http>false</http>
+        <version.server.bom>20.0.0.Final</version.server.bom>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
- 
-<dependencyManagement>
+
+    <dependencyManagement>
         <dependencies>
-         
-            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
-                of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-eap-javaee7-with-tools stack (you can
-                read this as the JBoss stack of the Java EE APIs, with some extras tools
-                for your project, such as Arquillian for testing) -->
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-javaee7-with-tools</artifactId>
+                <artifactId>wildfly-jakartaee8-with-tools</artifactId>
                 <version>${version.server.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- Define the version of the JBoss Java EE APIs we want to use -->
-            <!-- JBoss distributes a complete set of Java EE APIs including
-               a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-               a collection) of artifacts. We use this here so that we always get the correct
-               versions of artifacts. Here we use the jboss-javaee-7.0 stack (you can
-               read this as the JBoss stack of the Java EE APIs). You can actually
-               use this stack with any version of JBoss EAP that implements Java EE. -->
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>${version.jboss.spec.javaee.7.0}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -106,15 +86,8 @@
                         <classpath></classpath>
                         <argument>com.itbuzzpress.security.RemoteEJBClient</argument>
                     </arguments>
-                    <!--<detail>true</detail>-->
                 </configuration>
-                <!--<executions>
-                    <execution>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>-->
+
             </plugin>
             <!-- build standalone exe jar -->
             <plugin>
