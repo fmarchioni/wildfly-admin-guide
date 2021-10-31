@@ -1,7 +1,14 @@
+# Basic RAR set up:
+# wget https://repo1.maven.org/maven2/org/apache/activemq/activemq-rar/5.16.3/activemq-rar-5.16.3.rar
+# mv activemq-rar-5.16.3.rar activemq-rar.rar
+
 connect
 
 batch
-/subsystem="resource-adapters":add()
+
+# Uncomment if your configuration does not include the resource-adapters subsystem
+#/subsystem="resource-adapters":add()
+
 /subsystem="resource-adapters"/resource-adapter="activemq":add(archive="activemq-rar.rar",transaction-support="XATransaction")
 /subsystem="resource-adapters"/resource-adapter="activemq"/config-properties="ServerUrl":add(value="tcp://localhost:61616")
 /subsystem="resource-adapters"/resource-adapter="activemq"/config-properties="UserName":add(value="defaultUser")
