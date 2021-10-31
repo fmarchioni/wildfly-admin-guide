@@ -1,3 +1,5 @@
+# NOTE: PicketBox security domains are not available any more since WildFly 25
+
 connect
 batch
 /subsystem=security/security-domain=ds-encrypted:add(cache-type="default")
