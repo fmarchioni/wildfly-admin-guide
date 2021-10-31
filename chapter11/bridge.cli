@@ -1,6 +1,6 @@
 # Target Server Configuration:
 # On the target server you need to execute the following command to create the queue:
-#/subsystem="messaging-activemq"/server="default"/jms-queue="JMSBridgeSourceQueue":add(entries=["queue/JMSBridgeTargetQueue","java:jboss/exported/jms/queues/JMSBridgeTargetQueue"])
+#/subsystem="messaging-activemq"/server="default"/jms-queue="JMSBridgeTargetQueue":add(entries=["queue/JMSBridgeTargetQueue","java:jboss/exported/jms/queues/JMSBridgeTargetQueue"])
 #
 
 # Then, add un user with the folllowing command:
