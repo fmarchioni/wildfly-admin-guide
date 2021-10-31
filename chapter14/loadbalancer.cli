@@ -7,7 +7,6 @@ batch
 /subsystem=undertow/server=default-server/host=default-host/filter-ref=modcluster:add
 # The following is needed only if you are not running an ha profile !
 /socket-binding-group=standard-sockets/socket-binding=modcluster:add(port=23364, multicast-address=224.0.1.105)
-run-batch
 
 run-batch
 
