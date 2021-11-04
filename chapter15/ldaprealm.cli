@@ -6,7 +6,7 @@ end-if
 
 batch
 
-/subsystem=elytron/dir-context=exampleDC:add(url="ldap://172.17.0.2:389",principal="cn=admin,dc=wildfly,dc=org",credential-reference={clear-text="secret"})
+/subsystem=elytron/dir-context=exampleDC:add(url="ldap://172.17.0.2:389",principal="cn=admin,dc=wildfly,dc=org",credential-reference={clear-text="admin"})
 
 /subsystem=elytron/ldap-realm=demoLdapRealm:add(dir-context=exampleDC,identity-mapping={search-base-dn="ou=Users,dc=wildfly,dc=org",rdn-identifier="uid",user-password-mapper={from="userPassword"},attribute-mapping=[{filter-base-dn="ou=Roles,dc=wildfly,dc=org",filter="(&(objectClass=groupOfNames)(member={1}))",from="cn",to="Roles"}]})
 
