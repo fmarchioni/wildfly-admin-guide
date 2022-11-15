@@ -1,5 +1,5 @@
 # Start a new Postgres in Docker with
-# sudo docker run -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -e POSTGRES_USER=postgres -d -p 5432:5432 postgres:11
+# sudo docker run -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -e POSTGRES_USER=postgres -d -p 5432:5432 postgres:13
 
 # Download the JDBC Driver
 # wget https://jdbc.postgresql.org/download/postgresql-42.2.8.jar
