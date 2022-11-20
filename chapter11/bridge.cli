@@ -1,16 +1,17 @@
-# Target Server Configuration:
+# Target Server Configuration
+###############################################
 # On the target server you need to execute the following command to create the queue:
 #/subsystem="messaging-activemq"/server="default"/jms-queue="JMSBridgeTargetQueue":add(entries=["queue/JMSBridgeTargetQueue","java:jboss/exported/jms/queues/JMSBridgeTargetQueue"])
 #
-
 # Then, add un user with the folllowing command:
 # ./add-user.sh -a -u jmsuser -p password1! -g guest
 
+
+
 # Source Server Configuration
+###############################################
 
 connect
-
-batch
 
 # Configure Source Queue
  /subsystem=messaging-activemq/server=default/queue=JMSBridgeSourceQueue:add(queue-address=queue/sourceQueue)
@@ -21,12 +22,18 @@ batch
 # Configure Http Connector
 /subsystem=messaging-activemq/server=default/http-connector=bridge-connector/:add(endpoint=http-acceptor,socket-binding=messaging-remote)
 
+reload
+
 # Configure Remote Connection Factory
 /subsystem=messaging-activemq/server=default/connection-factory=RemoteConnectionFactory:write-attribute(name=connectors,value=["bridge-connector"])
+
+reload
+
 /subsystem=messaging-activemq/server=default/connection-factory=RemoteConnectionFactory:write-attribute(name=entries,value=["java:jboss/exported/jms/RemoteConnectionFactory"])
+
+reload
 
 # Configure JMS Bridge
 /subsystem=messaging-activemq/server=default/bridge=core-bridge:add(static-connectors=["bridge-connector"],queue-name="JMSBridgeSourceQueue", forwarding-address="jms.queue.JMSBridgeTargetQueue", user="jmsuser", password="password1!")
 
-#Execute batch script
-run-batch
+ 
