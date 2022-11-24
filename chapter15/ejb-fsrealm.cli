@@ -5,18 +5,19 @@ if (outcome != success) of /subsystem=elytron/simple-role-decoder=from-roles-att
      /subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)
 end-if
 
+
 batch
 /subsystem=elytron/filesystem-realm=demoFsRealmEJB:add(path=demofs-realm-ejb-users,relative-to=jboss.server.config.dir)
 
 /subsystem=elytron/filesystem-realm=demoFsRealmEJB:add-identity(identity=ejbuser)
 /subsystem=elytron/filesystem-realm=demoFsRealmEJB:set-password(identity=ejbuser,clear={password="password123"})
-/subsystem=elytron/filesystem-realm=demoFsRealmEJB:add-identity-attribute(identity=ejbuser,name=Roles, value=["guest","manager"])
+/subsystem=elytron/filesystem-realm=demoFsRealmEJB:add-identity-attribute(identity=ejbuser,name=Roles, value=["guest","employee"])
 
 /subsystem="elytron"/security-domain="fsSDEJB":add(default-realm="demoFsRealmEJB",permission-mapper="default-permission-mapper",realms=[{realm="demoFsRealmEJB",role-decoder="from-roles-attribute"},{realm="local"}])
 
 /subsystem="elytron"/sasl-authentication-factory="fs-application-sasl-authentication":add(mechanism-configurations=[{mechanism-name="JBOSS-LOCAL-USER",realm-mapper="local"},{mechanism-name="DIGEST-MD5",mechanism-realm-configurations=[{realm-name="demoFsRealmEJB"}]}],sasl-server-factory="configured",security-domain="fsSDEJB")
 
-/subsystem=ejb3/application-security-domain=other:add(security-domain=fsSDEJB)
+/subsystem=ejb3/application-security-domain=EJBDomain:add(security-domain=fsSDEJB)
 
 /subsystem=remoting/http-connector=http-remoting-connector:write-attribute(name=sasl-authentication-factory,value=fs-application-sasl-authentication)
 
