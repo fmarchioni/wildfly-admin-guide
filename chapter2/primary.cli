@@ -1,0 +1,27 @@
+### Domain Controller Configuration
+### Remember to add a management user from the shell
+###./add-user.sh -ds -m -u username="wildflyadmin" -p password1!  
+
+
+connect localhost:9990
+
+# Add th native interface to allow connections from Host Controllers
+/host=primary/core-service=management/management-interface=native-interface:add(sasl-authentication-factory=management-sasl-authentication, interface=management, port=9999)
+
+# Define Server Groups
+/server-group=main-server-group:write-attribute(name=profile,value=full)
+/server-group=other-server-group:write-attribute(name=profile,value=full)
+/server-group=main-server-group/jvm=default:write-attribute(name=max-heap-size,value=512m)
+/server-group=main-server-group/jvm=default:write-attribute(name=heap-size,value="64m")
+/server-group=other-server-group/jvm=default:write-attribute(name=max-heap-size,value=512m)
+/server-group=other-server-group/jvm=default:write-attribute(name=heap-size,value="64m")
+
+# Stop Servers before removing them
+
+/host=primary/server-config=server-one:stop(blocking=true)
+/host=primary/server-config=server-two:stop(blocking=true)
+#This is by default stopped
+#/host=primary/server-config=server-three:stop(blocking=true)
+
+reload --host=primary
+

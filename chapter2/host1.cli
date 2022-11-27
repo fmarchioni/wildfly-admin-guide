@@ -1,0 +1,34 @@
+####### Host Controller "host1" configuration
+
+## Connect to the Host Controller management Port
+connect localhost:19990
+
+# Add Eytron Authentication for the "wildflyadmin" management user
+/host=host1/subsystem=elytron/authentication-configuration="hostAuthConfig":add(authentication-name="wildflyadmin",credential-reference={"clear-text" => "password1!"},realm="ManagementRealm",sasl-mechanism-selector="DIGEST-MD5")
+
+/host=host1/subsystem=elytron/authentication-context="hcAuthContext":add(match-rules=[{authentication-configuration="hostAuthConfig"}])
+
+# Configure the Remote Domain Controller connectivity
+batch
+/host=host1:undefine-attribute(name=domain-controller.local)
+/host=host1:write-attribute(name=domain-controller.remote.host,value="${jboss.domain.master.address:localhost}")
+/host=host1:write-attribute(name=domain-controller.remote.port,value="9999")
+/host=host1:write-attribute(name=domain-controller.remote.protocol,value="remote")
+/host=host1:write-attribute(name=domain-controller.remote.authentication-context,value="hcAuthContext")
+run-batch
+
+# Stop default Server definitions
+/host=host1/server=server-one:stop(blocking=true)
+/host=host1/server=server-two:stop(blocking=true)
+#/host=host1/server=server-three:stop(blocking=true)
+
+# Add new Servers
+/host=host1/server-config=server-prod-one:add(group=main-server-group,socket-binding-port-offset=100)
+/host=host1/server-config=server-dev-one:add(group=other-server-group,socket-binding-port-offset=200)
+
+# Remove default Servers
+/host=host1/server-config=server-one:remove
+/host=host1/server-config=server-two:remove
+/host=host1/server-config=server-three:remove
+
+reload --host=host1
