@@ -1,6 +1,6 @@
 == link:http://www.itbuzzpress.com/wp/product/wildfly-administration-guide/[WildFly Administration Guide]
 
-Updated November 2022 - Jakarta EE 10 ready !
+To be published **December 2022** - Jakarta EE 10 ready !
 
 image::http://www.itbuzzpress.com/wp/wp-content/uploads/2020/11/wildfly_12_small.jpg[]
 
