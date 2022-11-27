@@ -4,32 +4,35 @@
 embed-host-controller --std-out=echo --domain-config=domain.xml --host-config=host.xml
 
 # Add Eytron Authentication for the "wildflyadmin" management user
-/host=host2/subsystem=elytron/authentication-configuration="hostAuthConfig":add(authentication-name="wildflyadmin",credential-reference={"clear-text" => "password1!"},realm="ManagementRealm",sasl-mechanism-selector="DIGEST-MD5")
+/host=primary/subsystem=elytron/authentication-configuration="hostAuthConfig":add(authentication-name="wildflyadmin",credential-reference={"clear-text" => "password1!"},realm="ManagementRealm",sasl-mechanism-selector="DIGEST-MD5")
 
-/host=host2/subsystem=elytron/authentication-context="hcAuthContext":add(match-rules=[{authentication-configuration="hostAuthConfig"}])
+/host=primary/subsystem=elytron/authentication-context="hcAuthContext":add(match-rules=[{authentication-configuration="hostAuthConfig"}])
 
 # Configure the Remote Domain Controller connectivity
 batch
-/host=host2:undefine-attribute(name=domain-controller.local)
-/host=host2:write-attribute(name=domain-controller.remote.host,value="${jboss.domain.master.address:localhost}")
-/host=host2:write-attribute(name=domain-controller.remote.port,value="9999")
-/host=host2:write-attribute(name=domain-controller.remote.protocol,value="remote")
-/host=host2:write-attribute(name=domain-controller.remote.authentication-context,value="hcAuthContext")
+/host=primary:undefine-attribute(name=domain-controller.local)
+/host=primary:write-attribute(name=domain-controller.remote.host,value="${jboss.domain.master.address:localhost}")
+/host=primary:write-attribute(name=domain-controller.remote.port,value="9999")
+/host=primary:write-attribute(name=domain-controller.remote.protocol,value="remote")
+/host=primary:write-attribute(name=domain-controller.remote.authentication-context,value="hcAuthContext")
 run-batch
 
 
 ######## In Embedded mode they are already stopped
-#/host=host2/server=server-one:stop(blocking=true)
-#/host=host2/server=server-two:stop(blocking=true)
-#/host=host2/server=server-three:stop(blocking=true)
+#/host=primary/server=server-one:stop(blocking=true)
+#/host=primary/server=server-two:stop(blocking=true)
+#/host=primary/server=server-three:stop(blocking=true)
 
 # Add new Servers
-/host=host2/server-config=server-prod-two:add(group=main-server-group,socket-binding-port-offset=300)
-/host=host2/server-config=server-dev-two:add(group=other-server-group,socket-binding-port-offset=400)
+/host=primary/server-config=server-prod-two:add(group=main-server-group,socket-binding-port-offset=300)
+/host=primary/server-config=server-dev-two:add(group=other-server-group,socket-binding-port-offset=400)
 
 # Remove default Servers
-/host=host2/server-config=server-one:remove
-/host=host2/server-config=server-two:remove
-/host=host2/server-config=server-three:remove
+/host=primary/server-config=server-one:remove
+/host=primary/server-config=server-two:remove
+/host=primary/server-config=server-three:remove
+
+/host=primary/core-service=management/management-interface=http-interface:write-attribute(name=port,value=29990)
+/host=primary:write-attribute(name=name,value=host2)
 
 stop-embedded-host-controller
