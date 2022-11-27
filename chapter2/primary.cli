@@ -11,6 +11,10 @@ connect localhost:9990
 # Define Server Groups
 /server-group=main-server-group:write-attribute(name=profile,value=full)
 /server-group=other-server-group:write-attribute(name=profile,value=full)
+
+/server-group=main-server-group:write-attribute(name=socket-binding-group,value=full-sockets)
+/server-group=other-server-group:write-attribute(name=socket-binding-group,value=full-sockets)
+
 /server-group=main-server-group/jvm=default:write-attribute(name=max-heap-size,value=512m)
 /server-group=main-server-group/jvm=default:write-attribute(name=heap-size,value="64m")
 /server-group=other-server-group/jvm=default:write-attribute(name=max-heap-size,value=512m)
