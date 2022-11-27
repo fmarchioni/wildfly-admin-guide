@@ -1,9 +1,8 @@
 ### Domain Controller Configuration
 ### Remember to add a management user from the shell
-###./add-user.sh -ds -m -u username="wildflyadmin" -p password1!  
+###./add-user.sh -ds -m -u wildflyadmin -p password1!  
 
-
-connect localhost:9990
+embed-host-controller --std-out=echo --domain-config=domain.xml --host-config=host.xml
 
 # Add th native interface to allow connections from Host Controllers
 /host=primary/core-service=management/management-interface=native-interface:add(sasl-authentication-factory=management-sasl-authentication, interface=management, port=9999)
@@ -22,10 +21,14 @@ connect localhost:9990
 
 # Stop Servers before removing them
 
-/host=primary/server-config=server-one:stop(blocking=true)
-/host=primary/server-config=server-two:stop(blocking=true)
-#This is by default stopped
-#/host=primary/server-config=server-three:stop(blocking=true)
+/host=primary/server-config=server-one:remove
+/host=primary/server-config=server-two:remove
+/host=primary/server-config=server-three:remove
 
-reload --host=primary
 
+######## In Embedded mode they are already stopped
+#/host=primary/server=server-one:stop(blocking=true)
+#/host=primary/server=server-two:stop(blocking=true)
+#/host=primary/server=server-three:stop(blocking=true)
+
+stop-embedded-host-controller

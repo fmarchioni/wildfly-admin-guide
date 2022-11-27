@@ -1,7 +1,7 @@
 ####### Host Controller "host1" configuration
 
-## Connect to the Host Controller management Port
-connect localhost:29990
+## Start in embedded mode
+embed-host-controller --std-out=echo --domain-config=domain.xml --host-config=host.xml
 
 # Add Eytron Authentication for the "wildflyadmin" management user
 /host=host2/subsystem=elytron/authentication-configuration="hostAuthConfig":add(authentication-name="wildflyadmin",credential-reference={"clear-text" => "password1!"},realm="ManagementRealm",sasl-mechanism-selector="DIGEST-MD5")
@@ -18,9 +18,9 @@ batch
 run-batch
 
 
-# Remove existing Server definitions
-/host=host2/server=server-one:stop(blocking=true)
-/host=host2/server=server-two:stop(blocking=true)
+######## In Embedded mode they are already stopped
+#/host=host2/server=server-one:stop(blocking=true)
+#/host=host2/server=server-two:stop(blocking=true)
 #/host=host2/server=server-three:stop(blocking=true)
 
 # Add new Servers
@@ -32,4 +32,4 @@ run-batch
 /host=host2/server-config=server-two:remove
 /host=host2/server-config=server-three:remove
 
-reload --host=host2
+stop-embedded-host-controller
