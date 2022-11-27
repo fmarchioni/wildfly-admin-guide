@@ -1,0 +1,78 @@
+== link:http://www.itbuzzpress.com/wp/product/wildfly-administration-guide/[WildFly Administration Guide]
+
+Updated November 2022 - Jakarta EE 10 ready !
+
+image::http://www.itbuzzpress.com/wp/wp-content/uploads/2020/11/wildfly_12_small.jpg[]
+
+=== What this book covers:
+
+**Chapter 1: Getting started with WildFly** covers the installation of the server platform and introduces the reader to the most significant changes from the earliest release of the application server up to the latest one.
+
+**Chapter 2: Core Server configuration** discusses the core configuration of the
+application server both in standalone mode and in domain mode,
+including detailed steps to setup a suggested domain configuration
+topology.
+
+**Chapter 3: Server Management with HAL Management console** covers the Web based
+administration interface that can be used to manage the application
+server.
+
+**Chapter 4: Server Management with the CLI** introduces the reader to the
+Command Line Interface which is the recommended management tool.
+
+**Chapter 5: Advanced CLI features** covers some advanced
+tasks that can be pursued with the CLI such as batch scripts,
+suspending server execution, executing commands in offline mode and
+more.
+
+**Chapter 6: Deploying applications** encompasses in detail all available
+options to deploy Java Enterprise applications on the application
+server.
+
+**Chapter 7: Configuring Database connectivity**, is about configuring connections to
+relational databases by installing JDBC Drivers and Datasources.
+
+**Chapter 8: Configuring Undertow Webserver** discusses about the new fast and
+furious Web server implementation named Undertow
+
+**Chapter 9: Configuring the Enterprise subsystems** covers the core subsystems which are the backbone of Enterprise applications (ejb, ee, jaxrs, singleton, naming, batch-jberet, mail).
+
+**Chapter 10: Configure Logging** covers the configuration of log subsystem,
+including all available log handlers, and best practices to log to
+your own requirements
+
+**Chapter 11: Configuring JMS Services** is about the nuts and bolts of WildFly’s JMS
+provider which is now ActiveMQ Artemis messaging system.
+
+**Chapter 12: Classloading and modules** is a deep dive into the
+application server’s modular kernel and how to configure it to load
+libraries needed by your applications. The chapter also covers the Galleon tool and how it can be used to provision custom versions of the application server.
+
+**Chapter 13: Clustering** covers the application server clustering capabilities
+that serve as an essential component to provide scalability and high
+availability to your applications.
+
+**Chapter 14: Load balancing applications** discusses the other key concern
+of clustering, that is the ability to make several servers
+participate in the same service and do the same work.
+
+**Chapter 15: Securing WildFly with Elytron** covers the Elytron
+Security subsystem configuration.
+
+**Chapter 16: Securing WildFly with PicketBox** covers the foundation of the legacy application
+server Security framework (deprecated).
+
+**Chapter 17: RBAC and other Constraints** covers aspects of the
+application server security, such as Role Based Access Control which
+are not specific to the security framework adopted (Elytron/legacy)
+
+**Chapter 18: Taking WildFly in the cloud** shows how to deploy the application server in the cloud, including some basic container
+tasks and advanced tactics.
+
+**Chapter 19: Configuring MicroProfile capabilities**
+introduces the new MicroProfile extensions, which is an essential feature if you are developing portable services to be executed in container environments.
+
+
+The source code is distributed under the MIT license (https://opensource.org/licenses/MIT)
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
