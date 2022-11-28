@@ -1,0 +1,9 @@
+== Errata Page for the WildFly Administration guide
+
+This page contains the errata found on the version **3.0** of the book (December 2022).
+
+You can submit an errata in several ways:
+
+* Fork the WildFly Admin Guide repository and propose a pull request
+
+* Send a mail to info@itbuzzpress.com
