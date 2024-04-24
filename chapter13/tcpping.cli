@@ -1,3 +1,5 @@
+connect
+
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=jgroups-host-a:add(host=localhost, port=7600)
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=jgroups-host-b:add(host=localhost, port=7750)
 

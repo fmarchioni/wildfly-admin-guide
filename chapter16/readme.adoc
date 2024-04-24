@@ -1,0 +1,3 @@
+== Legacy WildFly Security
+
+Please note that the example and scripts in this chapter are no longer supported in WildFly and are included here solely for archival purposes

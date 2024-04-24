@@ -3,19 +3,19 @@ package com.itbuzzpress.security;
 
 import java.security.Principal;
 
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.Remote;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.Remote;
+import jakarta.ejb.SessionContext;
+import jakarta.ejb.Stateless;
 
 import org.jboss.ejb3.annotation.SecurityDomain;
 
  
 @Stateless
 @Remote(SecuredEJBRemote.class)
-@RolesAllowed({ "guest" })
-@SecurityDomain("other")
+@RolesAllowed({ "employee" })
+@SecurityDomain("EJBDomain")
 public class SecuredEJB implements SecuredEJBRemote {
 
     // Inject the Session Context
@@ -29,7 +29,7 @@ public class SecuredEJB implements SecuredEJBRemote {
         return principal.toString();
     }
 
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public boolean secured() {
         return true;
     }

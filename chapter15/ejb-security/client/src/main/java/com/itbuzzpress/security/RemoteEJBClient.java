@@ -3,7 +3,7 @@ package com.itbuzzpress.security;
 
 import java.util.Hashtable;
 
-import javax.ejb.EJBAccessException;
+import jakarta.ejb.EJBAccessException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 

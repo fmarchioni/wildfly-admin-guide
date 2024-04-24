@@ -1,0 +1,11 @@
+# Remove datasource
+
+connect
+
+
+/subsystem=datasources/data-source=PostgrePool:remove
+reload
+/subsystem=datasources/jdbc-driver=postgres:remove
+
+
+module remove --name=org.postgres 

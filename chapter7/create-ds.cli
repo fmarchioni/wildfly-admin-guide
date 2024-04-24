@@ -8,7 +8,7 @@ connect
 
 batch
 
-module add --name=org.postgres --resources=postgresql-42.2.8.jar --dependencies=javax.api,javax.transaction.api 
+module add --name=org.postgres --resources=postgresql-42.2.8.jar --dependencies=java.se,jakarta.transaction.api
 
 /subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver)
 

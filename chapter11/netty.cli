@@ -1,6 +1,7 @@
-batch
+connect
 
 /subsystem=messaging-activemq/server=default/remote-acceptor=netty:add(socket-binding=messaging)
-/socket-binding-group=standard-sockets/socket-binding=messaging:add(port=5445)
 
-run-batch
+reload
+
+/socket-binding-group=standard-sockets/socket-binding=messaging:add(port=5445)
