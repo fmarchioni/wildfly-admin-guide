@@ -1,4 +1,4 @@
-####### Host Controller "host1" configuration
+####### Host Controller "host2" configuration
 
 ## Start in embedded mode
 embed-host-controller --std-out=echo --domain-config=domain.xml --host-config=host.xml
