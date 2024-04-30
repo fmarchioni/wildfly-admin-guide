@@ -1,8 +1,3 @@
-dn: dc=wildfly,dc=org
-objectclass: dcObject
-objectclass: organization
-o: wildfly 
-dc: wildfly 
 
 dn: ou=Users,dc=wildfly,dc=org
 objectclass: top
